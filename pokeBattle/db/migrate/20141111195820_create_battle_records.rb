@@ -6,6 +6,7 @@ class CreateBattleRecords < ActiveRecord::Migration
       t.integer :pokemon
       t.string :date
       t.integer :experience
+      t.integer :user_id
 
       t.timestamps
     end

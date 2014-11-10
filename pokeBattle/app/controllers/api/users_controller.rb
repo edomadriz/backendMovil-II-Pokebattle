@@ -1,5 +1,4 @@
 class Api::UsersController < ApplicationController
-	protect_from_forgery with: :null_session
 	skip_before_filter  :verify_authenticity_token
 	respond_to :json
 
@@ -7,7 +6,7 @@ class Api::UsersController < ApplicationController
 
 	def index
 		@users = get_user
-		respond_with @user
+		respond_with @users
 	end
 
 	def show

@@ -6,7 +6,7 @@ class CreatePokemons < ActiveRecord::Migration
       t.string :base_type
       t.integer :height
       t.integer :weight
-      t.integer :pokedex_id
+      t.integer :pokedex_number
       t.string :attack
 
       t.timestamps

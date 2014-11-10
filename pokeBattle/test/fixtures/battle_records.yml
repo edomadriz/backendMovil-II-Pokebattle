@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  email: MyString
+  status: 1
+  pokemon: 1
+  date: MyString
+  experience: 1
+
+two:
+  email: MyString
+  status: 1
+  pokemon: 1
+  date: MyString
+  experience: 1

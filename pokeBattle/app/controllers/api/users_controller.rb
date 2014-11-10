@@ -11,26 +11,48 @@ class Api::UsersController < ApplicationController
 	end
 
 	def show
-		@user = find_user(params[:email])
-		respond_with @user
+		if params[:id_twitter].present?
+			@user = find_user_twitter(params[:id_twitter])
+		else
+			@user = find_user_email(params[:email])
+		end
+			respond_with @user
 	end
 
 	def create
-		@user = find_user(params[:email])
-		if @user.nil?
-			@user = User.new({:name=>params[:name], :email=>params[:email], :experience=>0, :base_pokemon=>0})
-			@user.save
-			respond_with @user do |format|
-				format.json { render json: @user.to_json }
+		if params[:email].present?
+			@user = find_user_email(params[:email])
+			if @user.nil?
+				@user = User.new({:name=>params[:name], :email=>params[:email], :experience=>0, :base_pokemon=>0,
+					:id_twitter=>params[:id_twitter]})
+				@user.save
+			end
+		else
+			@user = find_user_twitter(params[:id_twitter])
+			if @user.nil?
+				@user = User.new({:name=>params[:name], :email=>params[:email], :experience=>0, :base_pokemon=>0,
+					:id_twitter=>params[:id_twitter]})
+				@user.save
 			end
 		end
+
+		respond_with @user do |format|
+					format.json { render json: @user.to_json }
+				end
 	end
 
 	def update
-		@user = find_user(:email)
-		@user.base_pokemon = params[:base_pokemon]
-		@user.experience = params[:experience]
-		@user.save
+		if params[:email].present?
+			@user = find_user_email(:email)
+			@user.base_pokemon = params[:base_pokemon]
+			@user.experience = params[:experience]
+			@user.save
+		else
+			@user = find_user_twitter(:id_twitter)
+			@user.base_pokemon = params[:base_pokemon]
+			@user.experience = params[:experience]
+			@user.save
+		end
 
 		respond_with @user do |format|
 			format.json { render json: @user.to_json }
@@ -44,7 +66,11 @@ class Api::UsersController < ApplicationController
 		User.all
 	end
 
-	def find_user(email)
+	def find_user_email(email)
 		User.where(email: email)
+	end
+
+	def find_user_twitter(id_twitter)
+		User.where(id_twitter: id_twitter)
 	end
 end

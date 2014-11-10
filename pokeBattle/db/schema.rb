@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141111195819) do
+ActiveRecord::Schema.define(:version => 20141111195820) do
+
+  create_table "battle_records", :force => true do |t|
+    t.string   "email"
+    t.integer  "status"
+    t.integer  "pokemon"
+    t.string   "date"
+    t.integer  "experience"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "pokemons", :force => true do |t|
     t.string   "name"
@@ -30,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20141111195819) do
     t.string   "email"
     t.integer  "experience"
     t.integer  "base_pokemon"
+    t.integer  "id_twitter"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end

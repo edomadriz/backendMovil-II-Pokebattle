@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  base_hp: 
+  base_type: MyString
+  height: 
+  weight: 
+  pokedex_id: 
+
+two:
+  name: MyString
+  base_hp: 
+  base_type: MyString
+  height: 
+  weight: 
+  pokedex_id: 

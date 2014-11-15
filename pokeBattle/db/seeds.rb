@@ -27,4 +27,16 @@ pokemon_pokedex2 = PokemonPokedex.create({:pokedex_id=>1, :pokemon_id=>1})
 pokemon_pokedex3 = PokemonPokedex.create({:pokedex_id=>2, :pokemon_id=>2})
 pokemon_pokedex4 = PokemonPokedex.create({:pokedex_id=>2, :pokemon_id=>3})
 
-			
+
+battle1 = BattleRecord.create({:user_id=>1, :result=>1, :pokemon=>55, :date=>Time.now, :experience=>10})
+battle2 = BattleRecord.create({:user_id=>1, :result=>0, :pokemon=>5, :date=>Time.now, :experience=>10})
+battle3= BattleRecord.create({:user_id=>1, :result=>1, :pokemon=>99, :date=>Time.now, :experience=>10})
+battle5 = BattleRecord.create({:user_id=>1, :result=>0, :pokemon=>50, :date=>Time.now, :experience=>10})
+battle7 = BattleRecord.create({:user_id=>1, :result=>1, :pokemon=>15, :date=>Time.now, :experience=>10})
+
+battle8 = BattleRecord.create({:user_id=>2, :result=>1, :pokemon=>151, :date=>Time.now, :experience=>10})
+battle9 = BattleRecord.create({:user_id=>2, :result=>0, :pokemon=>11, :date=>Time.now, :experience=>10})
+battle10 = BattleRecord.create({:user_id=>2, :result=>1, :pokemon=>95, :date=>Time.now, :experience=>10})
+battle11 = BattleRecord.create({:user_id=>2, :result=>0, :pokemon=>75, :date=>Time.now, :experience=>10})
+
+

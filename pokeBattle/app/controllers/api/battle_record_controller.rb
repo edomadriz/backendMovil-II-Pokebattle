@@ -17,7 +17,6 @@ class Api::BattleRecordController < ApplicationController
 	end
 
 	def create
-		time = Time.new
 		if params[:email].present?
 			@user = find_user_email(params[:email])
 			@pokedex = PokemonPokedex.create({:pokedex_id=>@user.pokedex.id, :pokemon_id=>params[:pokemon]})

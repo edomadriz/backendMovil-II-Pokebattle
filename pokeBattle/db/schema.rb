@@ -11,18 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141111195822) do
+ActiveRecord::Schema.define(:version => 20141111195823) do
 
   create_table "battle_records", :force => true do |t|
-    t.string   "email"
-    t.integer  "status"
-    t.integer  "pokemon"
-    t.string   "date"
-    t.integer  "experience"
     t.integer  "user_id"
+    t.integer  "result"
+    t.integer  "pokemon"
+    t.datetime "date"
+    t.integer  "experience"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "battle_records", ["user_id"], :name => "index_battle_records_on_user_id"
 
   create_table "pokedexes", :force => true do |t|
     t.integer  "user_id"

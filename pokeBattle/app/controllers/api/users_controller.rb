@@ -9,14 +9,17 @@ class Api::UsersController < ApplicationController
 		respond_with @users
 	end
 
-	def show
+
+	def show_user
+		puts 'aqui'
 		if params[:id_twitter].present?
 			@user = find_user_twitter(params[:id_twitter])
 		else
 			@user = find_user_email(params[:email])
 		end
-			respond_with @user
+		respond_with @user
 	end
+
 
 	def create
 		if params[:email].present?

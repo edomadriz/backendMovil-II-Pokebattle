@@ -4,7 +4,14 @@ class Api::BattleRecordController < ApplicationController
 
 	def index
 		@battle = get_battle_record
-		respond_with @battle
+		@battleHash = {:battle=>@battle}
+		respond_with @battleHash
+	end
+
+	def show
+		@battles = find_battle_record(params[:id])
+		@battleHash = {:battlerecord=>@battles}
+		respond_with @battleHash
 	end
 
 	def show_battle
@@ -17,47 +24,60 @@ class Api::BattleRecordController < ApplicationController
 	end
 
 	def create
-		if params[:email].present?
-			@user = find_user_email(params[:email])
-			@pokedex = PokemonPokedex.create({:pokedex_id=>@user.pokedex.id, :pokemon_id=>params[:pokemon]})
-			@pokedex.save
-			@user.experience = params[:experience]
-			@user.save
-			@battle = BattleRecord.create({:user_id=>@user.id, :result=>params[:result], :pokemon=>params[:pokemon],
-				:date=>Time.now, :experience=>params[:experience]})
-			@battle.save	 
-		else
-			@user = find_user_twitter(params[:id_twitter])
-			@pokedex = PokemonPokedex.create({:pokedex_id=>@user.pokedex.id, :pokemon_id=>params[:pokemon]})
-			@pokedex.save
-			@user.experience = params[:experience]
-			@user.save
-			@battle = BattleRecord.create({:user_id=>@user.id, :result=>params[:result], :pokemon=>params[:pokemon],
-				:date=>Time.now, :experience=>params[:experience]})
-			@battle.save	
-		end
+		@user = find_user(params[:user_id])
+		@pokedex = get_pokedex(@user.id) 
+		@pokedex = PokemonPokedex.create({:pokedex_id=>@user.pokedex.id, :pokemon_id=>params[:pokemon]})
+		@pokedex.save
+		@user.experience = params[:experience]
+		@user.save
+		@battle = BattleRecord.create({:user_id=>@user.id, :result=>params[:result], :pokemon=>params[:pokemon],
+			:date=>Time.now, :experience=>params[:experience]})
+		@battle.save
+
+		respond_with @battle do |format|
+					format.json { render json: @user.to_json }
+				end
 	end
 
+
+	#def create_with_params
+	#	if params[:email].present?
+	#		@user = find_user_email(params[:email])
+	#		@pokedex = PokemonPokedex.create({:pokedex_id=>@user.pokedex.id, :pokemon_id=>params[:pokemon]})
+	#		@pokedex.save
+	#		@user.experience = params[:experience]
+	#		@user.save
+	#		@battle = BattleRecord.create({:user_id=>@user.id, :result=>params[:result], :pokemon=>params[:pokemon],
+	#			:date=>Time.now, :experience=>params[:experience]})
+	#		@battle.save	 
+	#	else
+	#		@user = find_user_twitter(params[:id_twitter])
+	#		@pokedex = PokemonPokedex.create({:pokedex_id=>@user.pokedex.id, :pokemon_id=>params[:pokemon]})
+	#		@pokedex.save
+	#		@user.experience = params[:experience]
+	#		@user.save
+	#		@battle = BattleRecord.create({:user_id=>@user.id, :result=>params[:result], :pokemon=>params[:pokemon],
+	#			:date=>Time.now, :experience=>params[:experience]})
+	#		@battle.save	
+	#	end
+	#end
+
 	private
+
+	def find_user(id)
+		User.find(id)
+	end
 
 	def get_battle_record
 		BattleRecord.all
 	end
 
-	def find_battle_record_twitter(id_twitter)
-		BattleRecord.where(id_twitter: id_twitter)
+	def find_battle_record(id)
+		BattleRecord.where(user_id: id)
 	end
 
-	def find_battle_record_email(email)
-		BattleRecord.where(email: email)
-	end
-
-	def find_user_email(email)
-		User.where(email: email)
-	end
-
-	def find_user_twitter(id_twitter)
-		User.where(id_twitter: id_twitter)
+	def get_pokedex(id)
+		Pokedex.where(user_id: id).first
 	end
 
 end

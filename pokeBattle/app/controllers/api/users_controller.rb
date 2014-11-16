@@ -6,12 +6,18 @@ class Api::UsersController < ApplicationController
 
 	def index
 		@users = get_user
-		respond_with @users
+		@userHash = {:users=>@users}
+		respond_with @userHash
+
 	end
 
+	def show
+		@user = find_user(params[:id])
+		@userHash = {:user=>[@user]}
+		respond_with @userHash
+	end
 
 	def show_user
-		puts 'aqui'
 		if params[:id_twitter].present?
 			@user = find_user_twitter(params[:id_twitter])
 		else
@@ -19,7 +25,6 @@ class Api::UsersController < ApplicationController
 		end
 		respond_with @user
 	end
-
 
 	def create
 		if params[:email].present?
@@ -44,35 +49,42 @@ class Api::UsersController < ApplicationController
 	end
 
 	def update
-		if params[:email].present?
-			@user = find_user_email(:email)
-			@user.base_pokemon = params[:base_pokemon]
-			@user.experience = params[:experience]
-			@user.save
-		else
-			@user = find_user_twitter(:id_twitter)
-			@user.base_pokemon = params[:base_pokemon]
-			@user.experience = params[:experience]
-			@user.save
-		end
+		puts params[:user_id]
+		puts params[:pokemon]
+		puts params[:email]
+
+		@user = find_user(params[:user_id])
+		@user.base_pokemon = params[:pokemon]
+		@user.save
+
+		@pokedex = get_pokedex(@user.id) 
+		@pokedex = PokemonPokedex.create({:pokedex_id=>@user.pokedex.id, :pokemon_id=>params[:pokemon]})
+		@pokedex.save
 
 		respond_with @user do |format|
 			format.json { render json: @user.to_json }
 		end
 	end
 	
-
 	private
 
 	def get_user
 		User.all
 	end
 
+	def find_user(id)
+		User.find(id)
+	end
+
+	def get_pokedex(id)
+		Pokedex.where(user_id: id).first
+	end
+
 	def find_user_email(email)
-		User.where(email: email)
+		User.where(email: email).first
 	end
 
 	def find_user_twitter(id_twitter)
-		User.where(id_twitter: id_twitter)
+		User.where(id_twitter: id_twitter).first
 	end
 end

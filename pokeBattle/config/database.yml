@@ -6,18 +6,16 @@ development:
   username: gabriel
   password:
 
-test:
-  adapter: postgresql
-  encoding: unicode
-  database: pokeBattle_test
-  pool: 5
-  username: gabriel
-  password:
+#test:
+#  adapter: postgresql
+#  encoding: unicode
+#  database: pokeBattle_test
+#  pool: 5
+ # username: BackendApp
+ # password:
 
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: pokeBattle_production
-  pool: 5
-  username: gabriel
-  password:
+#production:
+#  adapter: postgresql
+#  encoding: unicode
+#  database: pokeBattle_production
+#  pool: 5

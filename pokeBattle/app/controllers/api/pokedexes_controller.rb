@@ -6,8 +6,9 @@ class Api::PokedexesController < ApplicationController
 		@user = get_user(params[:user_id])
 		@pokedex = get_pokedex(@user)
 		@pokemons = @pokedex.pokemons
+		@pokedexHash = {pokedex:@pokemons}
 
-		respond_with @pokemons 
+		respond_with @pokedexHash 
 	end
 
 	private

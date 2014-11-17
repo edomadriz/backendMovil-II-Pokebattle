@@ -1,15 +1,4 @@
-#pokemon1 = Pokemon.create({:name=>'Bulbasor', :base_hp=>50, :base_type=>'Grass',
-#			:height=>3, :weight=>8, :pokedex_number=>1, :attack=>'pichasote'})
-#
-#pokemon2 = Pokemon.create({:name=>'Charmander', :base_hp=>50, :base_type=>'Fire',
-#			:height=>3, :weight=>8, :pokedex_number=>4, :attack=>'pichasote'})
-#
-#pokemon3 = Pokemon.create({:name=>'Squartle', :base_hp=>50, :base_type=>'Water',
-#			:height=>3, :weight=>8, :pokedex_number=>7, :attack=>'pichasote'})
-#
-#pokemon4 = Pokemon.create({:name => 'Pikachu', :base_hp => 50, :base_type => 'Electric',
-#			:height => 3, :weight => 8, :pokedex_number=>25, :attack=>'pichasote'})
-
+#Loading the pokemons, from pokemon API
 for i in 1..151
 	if i == 132
 		puts "http://pokeapi.co/api/v1/pokemon/"+i.to_s
@@ -41,6 +30,66 @@ for i in 1..151
 			:attack=>@pokemon['moves'][2]['name']})
 	end
 end
+#En of the loading of pokemons
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

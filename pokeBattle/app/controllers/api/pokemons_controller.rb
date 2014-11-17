@@ -38,8 +38,27 @@ class Api::PokemonsController < ApplicationController
 		respond_with @mapHash
 	end
 
+	def search_pokemon_basic
+		@pokemons = search_pokemon(params[:param])
+		respond_with @pokemons
+	end
+
+	def search_pokemon_advance
+		@pokemons = search_advance(params[:param1], params[:param2], params[:param3])
+		respond_with @pokemons
+	end
+
 
 	private
+
+	def search_advance(param1, param2, param3)
+		@restult = Pokemon.where(base_type: param1).where(param2+" > ?", param3)
+	end
+
+	def search_pokemon(param)
+		@result = Pokemon.where(base_type: param)
+		@result += Pokemon.where(name: param.capitalize)
+	end
 
 	def get_pokemons
 		Pokemon.all

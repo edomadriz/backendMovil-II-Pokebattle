@@ -14,5 +14,9 @@ PokeBattle::Application.routes.draw do
     get '/poke_master' => 'users#show_user'
 
     get '/battle' => 'battle_record#show_battle'
+
+    get 'pokemon/search/:param' => 'pokemons#search_pokemon_basic'
+
+    get 'pokemon/advance_search/:param1/:param2/:param3' => 'pokemons#search_pokemon_advance'
   end
 end
